@@ -40,8 +40,13 @@ public class MemberResourceTest extends JerseyTest {
         member.name = "member2_name";
         Entity<Member> entity = Entity.entity(member, MediaType.APPLICATION_JSON);
         Response res = target("members").request(MediaType.APPLICATION_JSON).post(entity);
+
         assertThat(res.getStatus(), is(201));
         assertThat(res.getHeaderString(HttpHeaders.LOCATION), is(notNullValue()));
+        Member resMember = res.readEntity(Member.class);
+        assertThat(resMember.id, is(notNullValue()));
+        assertThat(resMember.name, is(member.name));
+        close(res);
     }
 
     @Test

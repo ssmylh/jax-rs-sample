@@ -56,7 +56,7 @@ public class MemberResource {
         members.put(id, copied);
 
         URI location = uriInfo.getAbsolutePathBuilder().clone().path(id).build();
-        return Response.created(location).entity(member).build();
+        return Response.created(location).entity(copied).build();
     }
 
     @PUT
